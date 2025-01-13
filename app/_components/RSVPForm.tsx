@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useToast } from "@/hooks/use-toast";
+// import { useToast } from "@/hooks/use-toast";
 import { strings } from "../utils/strings";
 import { submitRSVP } from "../actions/submitRSVP";
 import { Cover } from "@/components/ui/ui/cover";
@@ -19,7 +19,7 @@ const RSVPForm = () => {
   const [attendance, setAttendance] = useState("yes");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsloading] = useState(false);
-  const { toast } = useToast();
+  // const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,32 +43,35 @@ const RSVPForm = () => {
     console.log(response);
 
     if (response.success) {
-      toast({
-        title: "Success",
-        description: strings.thankYouMessage,
-      });
+      // toast({
+      //   title: "Success",
+      //   description: strings.thankYouMessage,
+      // });
+      alert(strings.thankYouMessage);
       setName("");
       setEmail("");
       setAccompany(null);
       setAttendance("yes");
       setErrors({});
     } else {
-      toast({
-        title: "Error",
-        description: response.message,
-        variant: "destructive",
-      });
+      // toast({
+      //   title: "Error",
+      //   description: response.message,
+      //   variant: "destructive",
+      // });
+      alert(response.message);
       //check if email already submitted
       if (response.error) {
         if (response.error.code === "23505") {
           setErrors({
             email: "Email already exists",
           });
-          toast({
-            title: "Error",
-            description: "You already submited with this email",
-            variant: "destructive",
-          });
+          alert("You already submited with this email");
+          // toast({
+          //   title: "Error",
+          //   description: "You already submited with this email",
+          //   variant: "destructive",
+          // });
         }
       }
     }
